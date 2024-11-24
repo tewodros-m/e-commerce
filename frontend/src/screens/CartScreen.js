@@ -7,7 +7,7 @@ import {
   useSearchParams,
 } from 'react-router-dom';
 // import { CART_ADD_ITEM } from '../constants/cartConstants';
-import { addToCart } from '../actions/cartActions';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 import {
   Row,
   Col,
@@ -35,8 +35,8 @@ function CartScreen() {
     }
   }, [productId, qty, dispatch]);
 
-  const remvoveFromCartHandler = (id) => {
-    console.log('remove', id);
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id));
   };
 
   const checkoutHandler = () => {
@@ -53,9 +53,9 @@ function CartScreen() {
           </Message>
         ) : (
           <ListGroup variant='flush'>
-            <ListGroup.Item>
-              {cartItems.map((item) => (
-                <Row key={item.product} className='mb-3'>
+            {cartItems.map((item) => (
+              <ListGroup.Item key={item.product}>
+                <Row className='mb-3'>
                   <Col md={2}>
                     <Image src={item.image} alt={item.name} fluid rounded />
                   </Col>
@@ -84,14 +84,14 @@ function CartScreen() {
                     <Button
                       variant='light'
                       type='button'
-                      onClick={() => remvoveFromCartHandler(item.product)}
+                      onClick={() => removeFromCartHandler(item.product)}
                     >
                       <i className='fas fa-trash'></i>
                     </Button>
                   </Col>
                 </Row>
-              ))}
-            </ListGroup.Item>
+              </ListGroup.Item>
+            ))}
           </ListGroup>
         )}
       </Col>
