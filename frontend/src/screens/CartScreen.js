@@ -6,8 +6,6 @@ import {
   useParams,
   useSearchParams,
 } from 'react-router-dom';
-// import { CART_ADD_ITEM } from '../constants/cartConstants';
-import { addToCart, removeFromCart } from '../actions/cartActions';
 import {
   Row,
   Col,
@@ -18,6 +16,9 @@ import {
   Card,
 } from 'react-bootstrap';
 import Message from '../components/Message';
+
+// import { CART_ADD_ITEM } from '../constants/cartConstants';
+import { addToCart, removeFromCart } from '../actions/cartActions';
 
 function CartScreen() {
   const { id: productId } = useParams();
@@ -87,18 +88,20 @@ function CartScreen() {
                       onClick={() => removeFromCartHandler(item.product)}
                     >
                       <i className='fas fa-trash'></i>
+                      {item.product}
                     </Button>
                   </Col>
                 </Row>
               </ListGroup.Item>
             ))}
+            {/* <h1>Hello Cart</h1> */}
           </ListGroup>
         )}
       </Col>
       <Col md={4}>
         <Card>
           <ListGroup variant='flush'>
-            <ListGroup.Item>
+            {/* <ListGroup.Item>
               <h2>
                 Subtotal ({cartItems.reduce((acc, item) => acc + item.qty, 0)})
                 items
@@ -107,7 +110,7 @@ function CartScreen() {
               {cartItems
                 .reduce((acc, item) => acc + item.qty * item.price, 0)
                 .toFixed(2)}
-            </ListGroup.Item>
+            </ListGroup.Item> */}
           </ListGroup>
           <ListGroup.Item>
             <Button
