@@ -1,35 +1,20 @@
-from typing import Any, Dict
 from django.shortcuts import render
-from django.http import JsonResponse
 from rest_framework.response import Response
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import IsAuthenticated, IsAdminUser
+
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from rest_framework_simplejwt.views import TokenObtainPairView
 from django.contrib.auth.hashers import make_password
 from rest_framework import status
 
 from django.contrib.auth.models import User
+from base.products import products
+from base.serializers import UserSerializer, UserSerializerWithToken
 
-from .products import products
-from .models import Product
-from .serializers import ProductSerializer, UserSerializer, UserSerializerWithToken
-
-class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
-    # @classmethod
-    # def get_token(cls, user):
-    #     token = super().get_token(user)
-
-    #     # Add custom claims
-    #     token['username'] = user.username
-    #     token['message'] = 'hello world'
-
-    #     return token
+class MyTokenObtainPairSerializer(TokenObtainPairSerializer):    
     def validate(self, attrs):
         data = super().validate(attrs)
-
-        # data['username'] = self.user.username
-        # data['email'] = self.user.email
 
         serializer = UserSerializerWithToken(self.user).data
         for k, v in serializer.items():
@@ -70,14 +55,3 @@ def getUsers(request):
     serializer = UserSerializer(users, many=True)
     return Response(serializer.data)
 
-@api_view(['GET'])
-def getProducts(request):
-    products = Product.objects.all()
-    serializer = ProductSerializer(products, many=True)
-    return Response(serializer.data)
-
-@api_view(['GET'])
-def getProduct(request, pk):
-    product = Product.objects.get(_id=pk)
-    serializer = ProductSerializer(product,many=False)
-    return Response(serializer.data)
