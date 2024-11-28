@@ -8,8 +8,8 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 
 function LoginScreen() {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState('admin@admin.com');
+  const [password, setPassword] = useState('abcd');
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
