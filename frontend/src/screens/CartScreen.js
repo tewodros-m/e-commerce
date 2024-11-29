@@ -74,11 +74,13 @@ function CartScreen() {
                         )
                       }
                     >
-                      {[...Array(item.countInStock).keys()].map((x) => (
-                        <option key={x + 1} value={x + 1}>
-                          {x + 1}
-                        </option>
-                      ))}
+                      {[...Array(Math.max(0, item.countInStock)).keys()].map(
+                        (x) => (
+                          <option key={x + 1} value={x + 1}>
+                            {x + 1}
+                          </option>
+                        )
+                      )}
                     </Form.Control>
                   </Col>
                   <Col md={1}>
