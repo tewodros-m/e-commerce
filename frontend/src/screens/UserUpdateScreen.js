@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import FormContainer from '../components/FormContainer';
 import { Button, Form } from 'react-bootstrap';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
-import { getUserDetails } from '../actions/userActions';
+import { getUserDetails, updateUser } from '../actions/userActions';
+import { USER_UPDATE_RESET } from '../constants/userConstants';
 
 function UserUpdateScreen() {
   const [name, setName] = useState('');
@@ -14,22 +15,36 @@ function UserUpdateScreen() {
 
   const dispatch = useDispatch();
   const { id: userId } = useParams();
+  const navigate = useNavigate();
 
   const userDetails = useSelector((state) => state.userDetails);
   const { error, loading, user } = userDetails;
 
+  const userUpdate = useSelector((state) => state.userUpdate);
+  const {
+    error: errorUpdate,
+    loading: laodingUpdate,
+    success: successUpdate,
+  } = userUpdate;
+
   useEffect(() => {
-    if (!user.name || user._id !== Number(userId)) {
-      dispatch(getUserDetails(userId));
+    if (successUpdate) {
+      dispatch({ type: USER_UPDATE_RESET });
+      navigate('/admin/userlist');
     } else {
-      setName(user.name);
-      setEmail(user.email);
-      setIsAdmin(user.isAdmin);
+      if (!user.name || user._id !== Number(userId)) {
+        dispatch(getUserDetails(userId));
+      } else {
+        setName(user.name);
+        setEmail(user.email);
+        setIsAdmin(user.isAdmin);
+      }
     }
-  }, [dispatch, userId, user]);
+  }, [dispatch, userId, user, successUpdate, navigate]);
 
   const submitHandler = (e) => {
     e.preventDefault();
+    dispatch(updateUser({ _id: user._id, name, email, isAdmin }));
   };
 
   return (
@@ -38,6 +53,8 @@ function UserUpdateScreen() {
         Go Back
       </Link>
       <FormContainer>
+        {laodingUpdate && <Loader />}
+        {errorUpdate && <Message variant='danger'>{errorUpdate}</Message>}
         <h1>Update user</h1>
         {loading ? (
           <Loader />
@@ -71,6 +88,7 @@ function UserUpdateScreen() {
                 label='Is Admin'
                 checked={isAdmin}
                 onChange={(e) => setIsAdmin(e.target.checked)}
+                className='border border-primary'
               ></Form.Check>
             </Form.Group>
 
