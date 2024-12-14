@@ -8,7 +8,7 @@ import Message from '../components/Message';
 import Loader from '../components/Loader';
 
 function LoginScreen() {
-  const [email, setEmail] = useState('admin@admin.com');
+  const [email, setEmail] = useState('admin@test.com');
   const [password, setPassword] = useState('abcd');
 
   const navigate = useNavigate();
