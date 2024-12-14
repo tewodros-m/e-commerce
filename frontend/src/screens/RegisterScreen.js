@@ -9,9 +9,9 @@ import Loader from '../components/Loader';
 
 function RegisterScreen() {
   const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [confirmPassword, setConfirmPassword] = useState('');
+  const [email, setEmail] = useState('user@test.com');
+  const [password, setPassword] = useState('abcd');
+  const [confirmPassword, setConfirmPassword] = useState('abcd');
   const [message, setMessage] = useState('');
 
   const navigate = useNavigate();
