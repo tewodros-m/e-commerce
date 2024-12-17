@@ -66,7 +66,6 @@ function UserUpdateScreen() {
               <Form.Label>Name</Form.Label>
               <Form.Control
                 type='name'
-                required
                 value={name}
                 placeholder='Enter Name'
                 onChange={(e) => setName(e.target.value)}
@@ -76,7 +75,6 @@ function UserUpdateScreen() {
               <Form.Label>Email Address</Form.Label>
               <Form.Control
                 type='email'
-                required
                 value={email}
                 placeholder='Enter Email'
                 onChange={(e) => setEmail(e.target.value)}
