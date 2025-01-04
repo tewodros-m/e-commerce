@@ -8,14 +8,14 @@ import Product from '../components/Product';
 import Message from '../components/Message';
 import Loader from '../components/Loader';
 
-export default function HomeScreen() {
+export default function HomeScreen({history}) {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { products, loading, error } = productList;
-
+  let keyword = history.location.search;
   useEffect(() => {
-    dispatch(listProducts());
-  }, [dispatch]);
+    dispatch(listProducts(keyword  ));
+  }, [dispatch, keyword]);
 
   return (
     <div>
