@@ -1,19 +1,27 @@
 import { useState } from "react";
 import { Button, Form } from "react-bootstrap";
-import { useHistory } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 const SearchBox = () => {
-  const history = useHistory();
+  const navigate = useNavigate();
+  const { pathname } = useLocation();
   const [keyWord, setKeyword] = useState("");
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyWord) {
-      history.push(`/?keyword=${keyWord}`);
+      navigate(`/?keyword=${keyWord}&page=1`);
     } else {
-      history.push(history.push(history.location.pathname));
+      navigate(pathname);
     }
   };
   return (
-    <Form onSubmit={submitHandler} inline>
+    <Form
+      style={{
+        gap: "6px",
+      }}
+      onSubmit={submitHandler}
+      inlist="true"
+      className="d-flex "
+    >
       <Form.Control
         type="text"
         name="q"
