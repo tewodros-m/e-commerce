@@ -160,9 +160,9 @@ function ProductScreen({ history }) {
           <Row>
             <Col md={6}>
               <h4>Reviews</h4>
-              {product.reviews.length === 0 && <Message>No reviews</Message>}
+              {product.reviews?.length === 0 && <Message>No reviews</Message>}
               <ListGroup varient="flush">
-                {product.reviews.map((review) => (
+                {product.reviews?.map((review) => (
                   <ListGroup.Item key={review._id}>
                     <strong>{review.name}</strong>
                     <Rating>{review.rating}</Rating>
@@ -177,7 +177,9 @@ function ProductScreen({ history }) {
                     <Message variant="success">Product reviewed </Message>
                   )}
                   {successProductReview && (
-                    <Message variant="error">{errorProductReview} </Message>
+                    <Message variant="error">
+                      {JSON.stringify(errorProductReview)}{" "}
+                    </Message>
                   )}
                   {userInfo ? (
                     <Form onSubmit={submitHandler}>
@@ -187,7 +189,7 @@ function ProductScreen({ history }) {
                           as="select"
                           value={rating}
                           onChange={(e) => {
-                            setRating(e.preventDefault());
+                            setRating(e.target.value);
                           }}
                         >
                           <option value="">Select..</option>
