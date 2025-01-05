@@ -10,7 +10,6 @@ from base.models import Product, Review, User
 from base.serializers import ProductSerializer
 
 import json
-
 @api_view(['GET'])
 def getProducts(request):
     query = request.query_params.get('keyword')
@@ -19,7 +18,7 @@ def getProducts(request):
     products = Product.objects.filter(name__icontains=query)
     
     page = request.query_params.get('page')
-    paginator = Paginator(products, 2)
+    paginator = Paginator(products, 5)
     try:
         products = paginator.page(page)
     except PageNotAnInteger: 
