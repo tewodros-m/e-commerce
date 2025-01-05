@@ -17,6 +17,9 @@ import {
   PRODUCT_UPDATE_FAIL,
   PRODUCT_CREATE_REVIEW_SUCCESS,
   PRODUCT_CREATE_REVIEW_FAIL,
+  PRODUCT_TOP_REQUEST,
+  PRODUCT_TOP_SUCCESS,
+  PRODUCT_TOP_FAIL,
 } from "../constants/productConstants";
 
 export const listProducts =
@@ -36,6 +39,22 @@ export const listProducts =
       });
     }
   };
+
+export const listTopProducts = () => async (dispatch) => {
+  dispatch({ type: PRODUCT_TOP_REQUEST });
+  try {
+    const { data } = await axios.get(`/api/products/top/`);
+    dispatch({ type: PRODUCT_TOP_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_TOP_FAIL,
+      payload:
+        error.response && error.response.data.detail
+          ? error.response.detail
+          : error.message,
+    });
+  }
+};
 
 export const listProductDetails = (id) => async (dispatch) => {
   dispatch({ type: PRODUCT_DETAILS_REQUEST });
@@ -178,8 +197,8 @@ export const createProductReview =
         },
       };
 
-      const { data } = await axios.put(
-        `/api/products/update/${productId}/reviews /`,
+      const { data } = await axios.post(
+        `/api/products/${productId}/reviews`,
         review,
         config
       );
@@ -196,7 +215,7 @@ export const createProductReview =
         payload:
           error.response && error.response.data.detail
             ? error.response.detail
-            : error.message,
+            : error.message || "Something went wrong",
       });
     }
   };
