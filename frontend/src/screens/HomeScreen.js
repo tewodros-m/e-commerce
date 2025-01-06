@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import { useSearchParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { listProducts } from "../actions/productActions";
+import { useSearchParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { listProducts } from '../actions/productActions';
 
-import Product from "../components/Product";
-import Message from "../components/Message";
-import Paginate from "../components/Paginate";
-import Loader from "../components/Loader";
-import ProductCarousel from "../components/ProductCarousel";
+import Product from '../components/Product';
+import Message from '../components/Message';
+import Paginate from '../components/Paginate';
+import Loader from '../components/Loader';
+import ProductCarousel from '../components/ProductCarousel';
 
 export default function HomeScreen() {
   const dispatch = useDispatch();
@@ -21,12 +21,12 @@ export default function HomeScreen() {
 
   return (
     <div>
-      {!searChParams.get("keyword") && <ProductCarousel />}
+      {!searChParams.get('keyword') && <ProductCarousel />}
       <h1>Latest Products</h1>
       {loading ? (
         <Loader />
       ) : error ? (
-        <Message variant="danger">{error}</Message>
+        <Message variant='danger'>{error}</Message>
       ) : (
         <div>
           <Row>
@@ -37,7 +37,7 @@ export default function HomeScreen() {
             ))}
           </Row>
           <Paginate
-            keyword={searChParams.get("keyword")}
+            keyword={searChParams.get('keyword')}
             pages={pages}
             page={page}
           />

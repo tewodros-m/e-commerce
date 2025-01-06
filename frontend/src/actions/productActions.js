@@ -20,10 +20,10 @@ import {
   PRODUCT_TOP_REQUEST,
   PRODUCT_TOP_SUCCESS,
   PRODUCT_TOP_FAIL,
-} from "../constants/productConstants";
+} from '../constants/productConstants';
 
 export const listProducts =
-  (keyword = "") =>
+  (keyword = '') =>
   async (dispatch) => {
     dispatch({ type: PRODUCT_LIST_REQUEST });
     try {
@@ -84,7 +84,7 @@ export const deleteProduct = (id) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
@@ -117,7 +117,7 @@ export const createProduct = () => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
@@ -151,7 +151,7 @@ export const updateProduct = (product) => async (dispatch, getState) => {
 
     const config = {
       headers: {
-        "Content-type": "application/json",
+        'Content-type': 'application/json',
         Authorization: `Bearer ${userInfo.token}`,
       },
     };
@@ -192,7 +192,7 @@ export const createProductReview =
 
       const config = {
         headers: {
-          "Content-type": "application/json",
+          'Content-type': 'application/json',
           Authorization: `Bearer ${userInfo.token}`,
         },
       };
@@ -215,7 +215,7 @@ export const createProductReview =
         payload:
           error.response && error.response.data.detail
             ? error.response.detail
-            : error.message || "Something went wrong",
+            : error.message || 'Something went wrong',
       });
     }
   };

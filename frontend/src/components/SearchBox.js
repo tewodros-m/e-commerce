@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { Button, Form } from "react-bootstrap";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useState } from 'react';
+import { Button, Form } from 'react-bootstrap';
+import { useNavigate, useLocation } from 'react-router-dom';
 const SearchBox = () => {
   const navigate = useNavigate();
   const { pathname } = useLocation();
-  const [keyWord, setKeyword] = useState("");
+  const [keyWord, setKeyword] = useState('');
   const submitHandler = (e) => {
     e.preventDefault();
     if (keyWord) {
@@ -16,21 +16,21 @@ const SearchBox = () => {
   return (
     <Form
       style={{
-        gap: "6px",
+        gap: '6px',
       }}
       onSubmit={submitHandler}
-      inlist="true"
-      className="d-flex "
+      inlist='true'
+      className='d-flex '
     >
       <Form.Control
-        type="text"
-        name="q"
+        type='text'
+        name='q'
         onChange={(e) => {
           setKeyword(e.target.value);
         }}
-        className="mr-sm-2 ml-sm-5"
+        className='mr-sm-2 ml-sm-5'
       ></Form.Control>
-      <Button type="submit" variant="outline-success" className="p-2">
+      <Button type='submit' variant='outline-success' className='p-2'>
         Submit
       </Button>
     </Form>
