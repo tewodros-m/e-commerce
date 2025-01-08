@@ -14,6 +14,7 @@ export default function HomeScreen() {
   const dispatch = useDispatch();
   const productList = useSelector((state) => state.productList);
   const { products, loading, error, page, pages } = productList;
+  console.log(typeof page);
   const [searChParams] = useSearchParams();
   useEffect(() => {
     dispatch(listProducts(`?${searChParams.toString()}`));

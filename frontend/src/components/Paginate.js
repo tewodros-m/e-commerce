@@ -19,7 +19,13 @@ const Paginate = ({ page, pages, keyword = '', isAdmin = false }) => {
                 : `page=${x + 1}`,
             }}
           >
-            <Pagination.Item active={x + 1 === page}>{x + 1}</Pagination.Item>
+            <Pagination.Item
+              key={x + 1}
+              active={x + 1 === page}
+              className='mx-2'
+            >
+              {x + 1}
+            </Pagination.Item>
           </LinkContainer>
         ))}
       </Pagination>
